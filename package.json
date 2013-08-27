@@ -1,0 +1,26 @@
+{
+  "name": "Boogle",
+  "version": "0.1.0",
+  "description": "",
+  "framework": "mvc",
+  "main": "app.js",
+  "logfile" : "natb.log",
+  "keywords": [
+  ],
+  "author": "Quinn Madson (quinn@firstsnow.co)",
+  "maintainers": [
+  ],
+  "contributors": [
+  ],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "preferGlobal": false,
+  "dependencies": {
+  	"express-partials": "*",
+  	"ejs": "*"
+  },
+  "license":"",
+  "private": true
+}
