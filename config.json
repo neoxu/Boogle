@@ -1,7 +1,11 @@
 {
   "routes":
   [
-    { "path": "/", "callback": "application#index" }
+    { "path": "/", "callback": "application#index" },
+    
+    { "path": "/court", "method": "get", "callback": "application#court" },
+    
+    { "path": "/login", "method": "POST", "callback": "session#login" }
   ],
   "filters":
   [
