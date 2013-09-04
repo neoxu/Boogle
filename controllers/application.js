@@ -7,6 +7,15 @@ function index(req, res) {
 	});
 }
 
+function createclub(req, res) {	  
+	req.session.controller = "index";
+	res.render('createclub', {
+		title : 'Create a basketball club',
+		layout : 'layout',
+		req : req
+	});
+}
+
 function court(req, res) {	  
 	req.session.controller = "index";
 	res.render('court', {
