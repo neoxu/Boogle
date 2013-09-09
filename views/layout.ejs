@@ -61,13 +61,14 @@
               <li><a href="/">籃球幫</a></li>
               <li><a href="/createclub">成立聯盟</a></li>
               <li><a href="/court">球場</a></li>
+              <li><a href="/freeagent">自由球員</a></li>
             </ul>               
             	<form class="navbar-form navbar-right" name="login" action="/login" method="post">
             		<div class="form-group">
             		    <% if(!req.session.user){ %>    
               			<input type="text" name= 'un' placeholder="Email" class="form-control">
               			<input type="password" name= 'pw' placeholder="Password" class="form-control">
-              			<button type="submit" value="Login" class="btn btn-success" >Sign in</button>
+              			<button type="submit" value="login" class="btn btn-success" >Sign in</button>
               			<% } %>  
               			<% if(req.session.user){ %>  
               			  <a href="#" class="navbar-link"> <%=:req.session.user.name%> </a>

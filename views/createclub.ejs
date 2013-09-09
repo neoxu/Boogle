@@ -1,24 +1,41 @@
+
+    
 <div class="container-fluid">
 	<div class="row-fluid">
-		<div class="span12">
-			<div class="page-header">
-				<h1>
-					聯盟名稱
-				</h1>
-				<input type="text" name= 'un' placeholder="聯盟名稱" class="form-control">
-			</div>
-			<div class="page-header">
-				<h1>
-					聯盟介紹
-				</h1>
-				<input type="text" name= 'un' placeholder="聯盟介紹" class="form-control">
-			</div>
-			<form>
-				<fieldset>
-					<legend>上傳圖片</legend> <label>檔案路徑</label><input type="text" /><button class="btn" type="submit">選擇圖檔</button>
-				</fieldset>
-			</form>
-			<form>
+		<div class="span12">			    
+		    <form name="createclub" action="/createclub" method="post"> 
+				<div class="page-header">
+					<h1>
+						聯盟名稱
+					</h1>
+					<input type="text" name= 'clubName' placeholder="聯盟名稱" class="form-control">				
+				</div>
+				<div class="page-header">
+					<h1>
+						聯盟介紹
+					</h1>
+				<div class="ui-TextField ajax Module"><textarea class="content" placeholder="公告聯盟資訊，報名方式，比賽場地，時間等等..." name= 'clubInfo'></textarea></div>			   
+				</div>
+				<div class="page-header">
+					<h3>上傳圖片	
+						<input id="fileupload" type="file" name="file">
+						<input type="hidden" name="image"  value="" />
+						<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+						<script src="cloudinary/vendor/jquery.ui.widget.js"></script>
+						<script src="cloudinary/jquery.iframe-transport.js"></script>
+						<script src="cloudinary/jquery.fileupload.js"></script>
+						<script>
+							$(function () {
+							    $("#fileupload").change(function (){
+							    	var fileName = $(this).val();
+     	 							$(".image").html(fileName);
+							    	//form = document.forms['createclub'];
+							    	//form.elements["image"].value = $(this).val();
+   	 							});
+							});
+						</script>				
+					</h3>					
+				</div>
 				<fieldset>
 					<legend>管理規章</legend>
 					<p>
@@ -26,12 +43,13 @@
 					</p>
 					<ol>
 						<li>
-							<label>不可經營賭博性質籃球聯賽。</label>
+							<label>加入籃球幫的聯盟性質需與籃球運動相關。</label>
 						</li>
 						<li>
-							<label>同意平台使用球員資料作為宣傳用途。</label>
+							<label>籃球幫為公開平台，提供給大眾閱讀，分享。</label>
 						</li>
-					</ol> <label class="checkbox"><input type="checkbox" />同意</label> <button class="btn" type="submit">提交</button>
+					</ol> <label class="checkbox"><input type="checkbox" />同意</label> 
+					<button class="btn" type="submit" value='createclub'>提交</button>
 				</fieldset>
 			</form>
 		</div>

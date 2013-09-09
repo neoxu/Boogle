@@ -1,9 +1,14 @@
+<script src="jcrop/js/jquery.min.js"></script>
+<script src="jcrop/js/jquery.Jcrop.min.js"></script>
+<link rel="stylesheet" href="jcrop/css/jquery.Jcrop.css" type="text/css" />
+
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span12">
 			<div class="carousel slide" id="carousel-926043">
 				<div class="carousel-inner">
 					<div class="item active">
+					    <a href="/club" title="聯盟詳細資料">
 						<img alt="" src="assets/img/club001.jpg" />
 						<div class="carousel-caption">
 							<h4>
@@ -15,15 +20,21 @@
 								至今已走過八個年頭，從創立時期的困難重重到現在的穩定成長，我們始終秉持著一個信念-
 								「提供一個舒適的空間，讓熱愛籃球的人愉快的打球。」我們要盡力的舉辦一場精緻而完美的比賽，
 								提供如質如期的五星級球場服務。
-							</p>
+							</p>							
 						</div>
+						</a>
 					</div>
 				</div> <a data-slide="prev" href="#carousel-926043" class="left carousel-control">‹</a> <a data-slide="next" href="#carousel-926043" class="right carousel-control">›</a>
 			</div>
 			<div class="carousel slide" id="carousel-617671">
 				<div class="carousel-inner">
 					<div class="item active">
-						<img alt="" src="assets/img/club011.jpg" />
+						<img alt="" src="assets/img/club011.jpg" href='/club' id='target'/>
+						<script language="Javascript">
+    						jQuery(function($) {
+        						$('#target').Jcrop();
+    						});
+						</script>
 						<div class="carousel-caption">
 							<h4>
 								中正盃籃球聯盟
