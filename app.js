@@ -1,7 +1,8 @@
-var ACS = require('acs').ACS,
-    logger = require('acs').logger,
-    express = require('express'),
-    partials = require('express-partials');
+var ACS = require('acs').ACS;
+var logger = require('acs').logger;
+var express = require('express');
+var partials = require('express-partials');
+var cloudinary = require('cloudinary');
 
 // initialize app
 function start(app, express) {
