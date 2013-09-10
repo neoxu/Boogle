@@ -29,17 +29,13 @@ function getValue(url, varname) {
 		return '';
 }
 
-function dbUpdate(dbUrl, collectionName, query, doc, res) {	
+function dbUpdate(dbUrl, collectionName, query, doc, callback) {	
 	
 	function updateCallback(err) {
 		if (!err) {
 			console.log(collectionName + ' update success');
-			if (res)
-				res.send({});
 		} else {
 			console.log(collectionName + ' update fail ' + err);
-			if (res)
-				res.send({err: 'se2'});
 		}
 	}
 
@@ -48,7 +44,10 @@ function dbUpdate(dbUrl, collectionName, query, doc, res) {
 			if (db != null) {
 				var collection = db.collection(collectionName);
 				if (collection != null) {		
-					collection.update(query, doc, {upsert : true}, updateCallback);
+					if (callback)
+						collection.update(query, doc, {upsert : true}, callback);
+					else
+						collection.update(query, doc, {upsert : true}, updateCallback);
 				} else
 					console.log(collectionName + ' not found');
 			} else
@@ -128,7 +127,7 @@ function basketballclub(req, res) {
 	var fields = {_id: 0};
 	var sortParam = {clubName:1};
 	dbfind(url, clubCollection, query, fields, sortParam, function(docs){
-		res.render('basketballclub', {
+		res.render('index', {
 			title : 'Basketball Club',
 			layout : 'layout',
 			docs : docs,
@@ -140,22 +139,21 @@ function basketballclub(req, res) {
 function createclub(req, res) {	  
 	if (req.body.clubName) {		
 		var query = {clubName : req.body.clubName};
-		var club = {clubName: req.body.clubName, clubInfo: req.body.clubInfo};		
-		dbUpdate(url, clubCollection, query, club);	
+		var club = {clubName: req.body.clubName, clubInfo: req.body.clubInfo};	
 		
-		console.log(req.body.image);
-		if (req.body.image) {
-			console.log(req.body.image);
-			cloudinary.uploader.upload(req.body.image, function(result) {
-				console.log(result);
+		if (req.files.file) {
+			cloudinary.uploader.upload(req.files.file.path, function(result) {
+				club['backgroundimg'] = result; 
+				dbUpdate(url, clubCollection, query, club, updateCallback);
 			});
 		}
+		else {
+			dbUpdate(url, clubCollection, query, club, updateCallback);	
+		}
 		
-		res.render('index', {
-			title : 'Basketball Club',
-			layout : 'layout',
-			req : req
-		}); 
+		function updateCallback(err) {
+			res.redirect('/');
+		}
 	} else {
 		res.render('createclub', {
 			title : 'Basketball Club',

@@ -1,8 +1,7 @@
 {
   "routes":
   [
-  	{ "path": "/basketballclub", "method": "get", "callback": "database#basketballclub" },
-    { "path": "/", "callback": "application#index" },
+    { "path": "/", "method": "get", "callback": "database#basketballclub" },
     { "path": "/createclub", "method": "get", "callback": "application#createclub" },
     { "path": "/createclub", "method": "post", "callback": "database#createclub" },
     { "path": "/court", "method": "get", "callback": "application#court" },
