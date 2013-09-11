@@ -1,14 +1,12 @@
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span12">
-		<form name="club" action="/club1" method="get">
 		    <% for(var i=0; i< docs.length; i++){ %>
 		    	<% if (docs[i].clubName && docs[i].backgroundimg && docs[i].backgroundimg.url)  { %>
-				<div class="carousel slide" id="carousel-926043">
+					<div class="carousel slide" id="carousel-926043">
 					<div class="carousel-inner">
 						<div class="item active">
-					   		<a href=/club1 title="聯盟詳細資料">
-					   			<input type="hidden" name="clubname" value=<%= docs[i].clubName %> />
+					   		<a href=/club?clubname=<%= docs[i].clubName %> title="聯盟詳細資料">
 								<img alt="" src=<%=docs[i].backgroundimg.url%> />
 								<div class="carousel-caption">
 									<h4>
@@ -18,12 +16,20 @@
 										<%= docs[i].clubInfo %>
 									</p>							
 								</div>
-							</a>						
+							</a>	
 						</div>
-				</div>
+					</div>
+					</div>
+					<div> <h1> </h1> </div>
 				<% } %>
 			<% } %>
-		</form>
 		</div>
 	</div>
 </div>
+
+<script> 
+  	function linkclub() { 
+    	alert('club');
+    	document.setAttribute('clubName', 'somebody假日聯盟');
+  	} 
+</script>

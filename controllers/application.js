@@ -26,14 +26,6 @@ function court(req, res) {
 	});
 }
 
-function club(req, res) {	  
-	res.render('club', {
-		title : 'Club Information',
-		layout : 'layout',
-		req : req
-	});
-}
-
 function team(req, res) {	  
 	res.render('team', {
 		title : 'Team Information',

@@ -3,18 +3,14 @@
 		<div class="span12">
 			<div class="page-header">
 				<h1>
-					Somebody假日聯盟
+					<%= club.clubName %>
 				</h1>
 			</div>
 			<h2>
 				聯盟公告
 			</h2>
 			<p>
-				Somebody室內籃球聯盟成立於2005年七月，是一個集結了對籃球有熱情的同好而創立的團隊。
-				在創立之初，充滿著困難與挫折，但是憑著一股對籃球的熱情，我們還是努力的面對各種挑戰。
-				至今已走過八個年頭，從創立時期的困難重重到現在的穩定成長，我們始終秉持著一個信念-
-				「提供一個舒適的空間，讓熱愛籃球的人愉快的打球。」我們要盡力的舉辦一場精緻而完美的比賽，
-				提供如質如期的五星級球場服務。
+				<%= club.clubInfo %>
 			</p>
 			<p>
 				<a class="btn" href="#">查看更多 »</a>
@@ -48,10 +44,12 @@
 				<h1>
 					賽程
 				</h1>				
-			</div><ul class="thumbnails">			    
+			</div><ul class="thumbnails">	
+				<% for(var i=0; i< 3; i++){ %>		    
 				<li class="span4">
 					<div class="thumbnail">
 						<div class="caption">
+						    
 							<h3>
 								9/8/2013
 							</h3>
@@ -81,82 +79,11 @@
 							</p>
 							<p>
 								 <a class="btn" href="#">分享</a>
-							</p>
+							</p>							 
 						</div>
 					</div>
 				</li>
-				<li class="span4">
-					<div class="thumbnail">
-						<div class="caption">
-							<h3>
-								9/15/2013
-							</h3>
-							<p>
-								13:00 Happy 老友 V.S Healthy Body 
-							</p>
-							<p>
-								14:00 HAPPY宇揚V.S Fighting 30 
-							</p>
-							<p>
-								15:00 Mercury V.S Miracle
-							</p>
-							<p>
-								16:00 群中 V.S Buzzer Beat 
-							</p>
-							<p>
-								17:00 籃球愛好者 V.S 要你命3000 
-							</p>
-							<p>
-								18:00 聿富V.S Hangover 
-							</p>
-							<p>
-								19:00 A.M.P V.S 明志校友 
-							</p>
-							<p>
-								20:00 高記V.S 369復仇者聯盟
-							</p>
-							<p>
-								 <a class="btn" href="#">分享</a>
-							</p>
-						</div>
-					</div>
-				</li>
-				<li class="span4">
-					<div class="thumbnail">
-						<div class="caption">
-							<h3>
-								9/22/2013
-							</h3>
-							<p>
-								13:00 Happy 老友 V.S Healthy Body 
-							</p>
-							<p>
-								14:00 HAPPY宇揚V.S Fighting 30 
-							</p>
-							<p>
-								15:00 Mercury V.S Miracle
-							</p>
-							<p>
-								16:00 群中 V.S Buzzer Beat 
-							</p>
-							<p>
-								17:00 籃球愛好者 V.S 要你命3000 
-							</p>
-							<p>
-								18:00 聿富V.S Hangover 
-							</p>
-							<p>
-								19:00 A.M.P V.S 明志校友 
-							</p>
-							<p>
-								20:00 高記V.S 369復仇者聯盟
-							</p>
-							<p>
-								 <a class="btn" href="#">分享</a>
-							</p>
-						</div>
-					</div>
-				</li>
+				<% } %>
 			</ul>
 			<div class="page-header">
 				<h1>
@@ -187,6 +114,7 @@
 					</tr>
 				</thead>
 				<tbody>
+					<% for(var i=0; i< 20; i++){ %>
 					<tr>
 						<td>
 							1
@@ -207,86 +135,7 @@
 							67%
 						</td>
 					</tr>
-					<tr class="success">
-						<td>
-							1
-						</td>
-						<td>
-							B
-						</td>
-						<td>
-							9
-						</td>
-						<td>
-							5
-						</td>
-						<td>
-							4
-						</td>
-						<td>
-							55%
-						</td>
-					</tr>
-					<tr class="error">
-						<td>
-							2
-						</td>
-						<td>
-							C
-						</td>
-						<td>
-							9
-						</td>
-						<td>
-							4
-						</td>
-						<td>
-							5
-						</td>
-						<td>
-							45%
-						</td>
-					</tr>
-					<tr class="warning">
-						<td>
-							3
-						</td>
-						<td>
-							D
-						</td>
-						<td>
-							9
-						</td>
-						<td>
-							3
-						</td>
-						<td>
-							6
-						</td>
-						<td>
-							33%
-						</td>
-					</tr>
-					<tr class="info">
-						<td>
-							4
-						</td>
-						<td>
-							E
-						</td>
-						<td>
-							9
-						</td>
-						<td>
-							2
-						</td>
-						<td>
-							7
-						</td>
-						<td>
-							24%
-						</td>
-					</tr>
+					<% } %>
 				</tbody>
 			</table>
 			<p>
@@ -296,112 +145,27 @@
 				<h1>
 					數據排行
 				</h1>
-			</div><ul class="thumbnails">			    
+			</div><ul class="thumbnails">				    
+			    <%	var ranks = ["得分","籃板","阻攻","助攻","抄截"]; %>
+			    <% for(var i=0; i< 5; i++){ %>		    
 				<li class="span2">
 					<div class="thumbnail">
 						<div class="caption">
 							<h3>
-								得分
+								<%= ranks[i] %>	
 							</h3>
+							<% for(var j=0; j< 3; j++){ %>
 							<p>
 								Alen Liu: 100
 							</p>
-							<p>
-								N Othing Chio: 99
-							</p>
-							<p>
-								Pin Wang: 98
-							</p>
+							<% } %>
 							<p>
 								 <a class="btn" href="#">分享</a>
-							</p>
+							</p>							
 						</div>
 					</div>
 				</li>
-				<li class="span2">
-					<div class="thumbnail">
-						<div class="caption">
-							<h3>
-								籃板
-							</h3>
-							<p>
-								Alen Liu: 100
-							</p>
-							<p>
-								N Othing Chio: 99
-							</p>
-							<p>
-								Pin Wang: 98
-							</p>
-							<p>
-								 <a class="btn" href="#">分享</a>
-							</p>
-						</div>
-					</div>
-				</li>
-				<li class="span2">
-					<div class="thumbnail">
-						<div class="caption">
-							<h3>
-								阻攻
-							</h3>
-							<p>
-								Alen Liu: 100
-							</p>
-							<p>
-								N Othing Chio: 99
-							</p>
-							<p>
-								Pin Wang: 98
-							</p>
-							<p>
-								 <a class="btn" href="#">分享</a>
-							</p>
-						</div>
-					</div>
-				</li>
-				<li class="span2">
-					<div class="thumbnail">
-						<div class="caption">
-							<h3>
-								助攻
-							</h3>
-							<p>
-								Alen Liu: 100
-							</p>
-							<p>
-								N Othing Chio: 99
-							</p>
-							<p>
-								Pin Wang: 98
-							</p>
-							<p>
-								 <a class="btn" href="#">分享</a>
-							</p>
-						</div>
-					</div>
-				</li>
-				<li class="span2">
-					<div class="thumbnail">
-						<div class="caption">
-							<h3>
-								抄截
-							</h3>
-							<p>
-								Alen Liu: 100
-							</p>
-							<p>
-								N Othing Chio: 99
-							</p>
-							<p>
-								Pin Wang: 98
-							</p>
-							<p>
-								 <a class="btn" href="#">分享</a>
-							</p>
-						</div>
-					</div>
-				</li>
+				<% } %>
 			</ul>			
 			<ul class="thumbnails">			    
 				<li class="span6">

@@ -18,6 +18,7 @@
   },
   "preferGlobal": false,
   "dependencies": {
+    "cloudinary": "*",
   	"express-partials": "*",
   	"ejs": "*"
   },

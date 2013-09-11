@@ -1,35 +1,12 @@
+var cloudinary = require('cloudinary');
 var MongoClient = require('mongodb').MongoClient;
 var format = require('util').format;
-var urlNiceMarket = format("mongodb://%s:%s@%s:%s/%s", 'neo', '1234', 'dharma.mongohq.com', 10042, 'NiceMarket');
-var url = format("mongodb://%s:%s@%s:%s/%s", 'neo', '1234', 'paulo.mongohq.com', 10003, 'BasketballClub');
+var url = require('url');
+var dbUrl = format("mongodb://%s:%s@%s:%s/%s", 'neo', '1234', 'paulo.mongohq.com', 10003, 'BasketballClub');
 var clubCollection = 'club';
-var usersCollection = 'users';
-var cloudinary = require('cloudinary');
+var courtCollection = 'court';
 
-function getValue(url, varname) {		
-	var qparts = url.split("?");
-	if (qparts.length == 0) {
-		return "";
-	}
-	var query = qparts[1];
-	if (query.split) {
-		var vars = query.split("&amp;");
-		var value = "";
-		for ( i = 0; i < vars.length; i++) {
-			var parts = vars[i].split("=");
-			if (parts[0] == varname) {
-				value = parts[1];
-				break;
-			}
-		}
-		value = unescape(value);
-		value.replace(/\+/g, " ");
-		return value;
-	} else
-		return '';
-}
-
-function dbUpdate(dbUrl, collectionName, query, doc, callback) {	
+function dbUpdate(collectionName, query, doc, callback) {	
 	
 	function updateCallback(err) {
 		if (!err) {
@@ -57,7 +34,7 @@ function dbUpdate(dbUrl, collectionName, query, doc, callback) {
 	});
 }
 
-function dbfind(dbUrl, collectionName, query, fields, sortParam, callback) {
+function dbfind(collectionName, query, fields, sortParam, callback) {
 	MongoClient.connect(dbUrl, function(err, db) {
 		if (!err) {			
 			if (db != null) {
@@ -80,7 +57,7 @@ function dbfind(dbUrl, collectionName, query, fields, sortParam, callback) {
 	});
 }
 
-function dbfindOne(dbUrl, collectionName, query, fields, callBack) {
+function dbfindOne(collectionName, query, fields, callBack) {
 	MongoClient.connect(dbUrl, function(err, db) {
 		if (!err) {			
 			if (db != null) {
@@ -96,7 +73,7 @@ function dbfindOne(dbUrl, collectionName, query, fields, callBack) {
 	});
 }
 			
-function doRemove(dbUrl, collectionName, query, res) {	
+function doRemove(collectionName, query, res) {	
 	
 	function removeCallback(err) {
 		if (!err) {
@@ -126,7 +103,7 @@ function basketballclub(req, res) {
 	var query = {};
 	var fields = {_id: 0};
 	var sortParam = {clubName:1};
-	dbfind(url, clubCollection, query, fields, sortParam, function(docs){
+	dbfind(clubCollection, query, fields, sortParam, function(docs){
 		res.render('index', {
 			title : 'Basketball Club',
 			layout : 'layout',
@@ -144,11 +121,11 @@ function createclub(req, res) {
 		if (req.files.file) {
 			cloudinary.uploader.upload(req.files.file.path, function(result) {
 				club['backgroundimg'] = result; 
-				dbUpdate(url, clubCollection, query, club, updateCallback);
+				dbUpdate(clubCollection, query, club, updateCallback);
 			});
 		}
 		else {
-			dbUpdate(url, clubCollection, query, club, updateCallback);	
+			dbUpdate(clubCollection, query, club, updateCallback);	
 		}
 		
 		function updateCallback(err) {
@@ -164,15 +141,15 @@ function createclub(req, res) {
 	}
 }
 
-function club(req, res) {	 
-	var clubName = getValue(req.url, 'clubname');
-	if (clubName !== '') {		
-		var query = {clubName : clubName};
+function club(req, res) {	
+	urlData = url.parse(req.url,true);
+	if (urlData && urlData.query && urlData.query.clubname) {		
+		var query = {clubName : urlData.query.clubname};
 		var fields = {_id : 0};
-		dbfindOne(url, clubCollection, query, fields, function(err, club) {
+		dbfindOne(clubCollection, query, fields, function(err, club) {
 			console.log(club);				
 			if (club) {
-				res.render('club1', {
+				res.render('club', {
 					title : 'Club Information',
 					layout : 'layout',
 					club : club,
@@ -182,11 +159,6 @@ function club(req, res) {
 				res.send(404);
 		});		
 	} else {
-		res.render('createclub', {
-			title : 'Basketball Club',
-			layout : 'layout',
-			err : 'Infomation error.',
-			req : req
-		}); 
+		res.redirect('/');
 	} 	
 }
