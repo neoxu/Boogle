@@ -2,6 +2,8 @@
   "routes":
   [
     { "path": "/", "method": "get", "callback": "database#basketballclub" },
+    { "path": "/auth/facebook", "method": "get", "callback": "application#facebookcallback" },
+    
     { "path": "/createclub", "method": "get", "callback": "application#createclub" },
     { "path": "/createclub", "method": "post", "callback": "database#createclub" },
     { "path": "/court", "method": "get", "callback": "application#court" },
@@ -10,6 +12,8 @@
     { "path": "/freeagent", "method": "get", "callback": "application#freeagent" },
     { "path": "/photo", "method": "get", "callback": "application#photo" },   
     
+    { "path": "/fblogin", "method": "GET", "callback": "database#fblogin" },
+    { "path": "/fblogout", "method": "GET", "callback": "database#fblogout" },
     { "path": "/login", "method": "POST", "callback": "session#login" }
   ],
   "filters":

@@ -1,8 +1,10 @@
+var util = require('util');
+var url = require('url');
 var cloudinary = require('cloudinary');
 var MongoClient = require('mongodb').MongoClient;
 var format = require('util').format;
-var url = require('url');
-var dbUrl = format("mongodb://%s:%s@%s:%s/%s", 'neo', '1234', 'paulo.mongohq.com', 10003, 'BasketballClub');
+var dbUrl = format('');
+var userCollection = 'user';
 var clubCollection = 'club';
 var courtCollection = 'court';
 
@@ -72,7 +74,7 @@ function dbfindOne(collectionName, query, fields, callBack) {
 			console.log(dbUrl + ' connect fail ' + err);		
 	});
 }
-			
+	
 function doRemove(collectionName, query, res) {	
 	
 	function removeCallback(err) {
@@ -99,6 +101,31 @@ function doRemove(collectionName, query, res) {
 	});
 }
 
+function fblogin(req, res) {	
+	var urlData = url.parse(req.url,true);
+	//console.log('fblogin: ' + util.inspect(urlData, true));	
+	var user = {uid: urlData.query.uid, name: urlData.query.name};
+	req.session.user = user;
+	res.redirect('/');		
+		
+	var query = {
+		uid : urlData.query.uid
+	};
+	var newUser = {
+		$set : {
+			uid : urlData.query.uid,
+			name : urlData.query.name
+		}
+	};
+
+	dbUpdate(userCollection, query, newUser); 
+}
+
+function fblogout(req, res) {	
+	req.session.user = undefined;
+	res.redirect('/');
+}
+	
 function basketballclub(req, res) {	  
 	var query = {};
 	var fields = {_id: 0};
@@ -142,12 +169,11 @@ function createclub(req, res) {
 }
 
 function club(req, res) {	
-	urlData = url.parse(req.url,true);
+	var urlData = url.parse(req.url,true);
 	if (urlData && urlData.query && urlData.query.clubname) {		
 		var query = {clubName : urlData.query.clubname};
 		var fields = {_id : 0};
 		dbfindOne(clubCollection, query, fields, function(err, club) {
-			console.log(club);				
 			if (club) {
 				res.render('club', {
 					title : 'Club Information',

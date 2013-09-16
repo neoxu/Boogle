@@ -1,6 +1,7 @@
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span12">
+		    <% if (docs) { %>
 		    <% for(var i=0; i< docs.length; i++){ %>
 		    	<% if (docs[i].clubName && docs[i].backgroundimg && docs[i].backgroundimg.url)  { %>
 					<div class="carousel slide" id="carousel-926043">
@@ -23,13 +24,7 @@
 					<div> <h1> </h1> </div>
 				<% } %>
 			<% } %>
+			<% } %>
 		</div>
 	</div>
 </div>
-
-<script> 
-  	function linkclub() { 
-    	alert('club');
-    	document.setAttribute('clubName', 'somebody假日聯盟');
-  	} 
-</script>

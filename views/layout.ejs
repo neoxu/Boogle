@@ -2,12 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Boogle</title>
+    <title>Boogle</title>    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Basketball social media.">
-    <meta name="author" content="neoxuisme@gmail.com">
+    <meta name="author" content="neoxuisme@gmail.com">   
     <!-- Le styles -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
+    
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -41,7 +42,20 @@
                                    <link rel="shortcut icon" href="assets/ico/favicon.png">
   </head>
 
-  <body>
+  <body>      
+    <div id="fb-root" class=" fb_reset">
+    	<script async="" src="http://connect.facebook.net/zh_TW/all.js#xfbml=1&appId=635551273144517"></script>	
+  		<!--<div style="position: absolute; top: -10000px; height: 0px; width: 0px;">
+  			<div>
+  			    <iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tab-index="-1" src="http://static.ak.facebook.com/connect/xd_arbiter.php?version=27#channel=f33bdf1828&amp;channel_path=%2Ffbconnect%2Fxd.html%3Ffb_xd_fragment%23xd_sig%3Df1a20c0d4c%26&amp;origin=http%3A%2F%2F127.0.0.1:53249" style="border: none;"></iframe>
+  				<iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tab-index="-1" src="https://s-static.ak.facebook.com/connect/xd_arbiter.php?version=27#channel=f33bdf1828&amp;channel_path=%2Ffbconnect%2Fxd.html%3Ffb_xd_fragment%23xd_sig%3Df1a20c0d4c%26&amp;origin=http%3A%2F%2F127.0.0.1:53249" style="border: none;"></iframe>
+  			</div>
+  		</div>
+  		<div style="position: absolute; top: -10000px; height: 0px; width: 0px;">
+  			<div>
+  			</div>
+  		</div>-->
+    </div>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -57,34 +71,73 @@
               <li><a href="/createclub">成立聯盟</a></li>
               <li><a href="/court">球場</a></li>
               <li><a href="/freeagent">自由球員</a></li>
-            </ul>               
-            	<form class="navbar-form navbar-right" name="login" action="/login" method="post">
-            		<div class="form-group">
-            		    <% if(!req.session.user){ %>    
-              			<input type="text" name= 'un' placeholder="Email" class="form-control">
-              			<input type="password" name= 'pw' placeholder="Password" class="form-control">
-              			<button type="submit" value="login" class="btn btn-success" >Sign in</button>
-              			<% } %>  
-              			<% if(req.session.user){ %>  
-              			  <a href="#" class="navbar-link"> <%=:req.session.user.name%> </a>
-              			<% } %>          		
+            </ul>   
+            <ul class="nav pull-right">   
+                <% if(!req.session.user){ %>
+					<a type="button" class="btn" href="#bclogin" data-toggle="modal">Log in using Facebook</a>
+				<% } %>  
+              	<% if(req.session.user){ %>
+              		<div href="#userinfo" data-toggle="modal">
+              		<a class="navbar-link" > <%=:req.session.user.name%> </a>  
+              	  	<img id="fbimg" class="img-rounded" src="https://graph.facebook.com/<%=req.session.user.uid%>/picture?width=40&height=40" title=<%=:req.session.user.name%>/>
               		</div>
-				</form>              
+              	<% } %>    
+			</ul>  
           </div><!--/.nav-collapse -->
         </div>
       </div>
     </div>
-
+    
+    <div class="modal fade" id="bclogin">
+  		<div class="modal-header">
+    		<a class="close" data-dismiss="modal">&times;</a>
+    		<h3>登入籃球幫</h3>
+  		</div>
+  		<div class="modal-body">
+  			<!--<div id="fblogin" class="fb-login-button" data-width="200"></div>-->
+    		<button id="fblogin" class="btn btn-facebook btn-large">Facebook 登入</button>    		
+  		</div>
+  		<div class="modal-footer">
+  			<!--
+  			<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fcitytasker&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=true&amp;font&amp;colorscheme=light&amp;action=like&amp;height=80&amp;appId=635551273144517" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowtransparency="true"></iframe>
+  			-->  	
+    	</div>
+	</div>	
+	
+	
+	<div class="modal fade" id="userinfo">
+  		<div class="modal-header">
+    		<a class="close" data-dismiss="modal">&times;</a>
+    		<% if(req.session && req.session.user){ %>
+    			<h3> <%=:req.session.user.name%> </h3>
+    		<% } %>  
+  		</div>
+  		<div class="modal-body">
+  		    <div>
+  		    	<% if(req.session && req.session.user){ %>
+  		    		<img id="fbpicture" class="img-rounded" src="https://graph.facebook.com/<%=req.session.user.uid%>/picture?width=200&height=200" title="picture"/>
+  		    	<% } %>  
+  		    </div>  	
+  		    <p></p>
+    		<button id="fblogout" class="btn btn-facebook btn-large">登出</button>    		
+  		</div>
+  		<div class="modal-footer">  				
+    	</div>
+	</div>	
+	
+	
 	<div class="container-fluid">
 	    <%- body %>
 	    <hr>
 		<%- partial('footer') %>
 	</div><!--/.fluid-container-->
 
-    <!-- Le javascript
+    <!-- Le javascript    
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>    
     <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>   
+    <script src="assets/js/facebook.js"></script>  
   </body>
 </html>
