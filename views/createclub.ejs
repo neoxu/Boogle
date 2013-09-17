@@ -32,7 +32,9 @@
 							<label>籃球幫為公開平台，提供給大眾閱讀，分享。</label>
 						</li>
 					</ol> <label class="checkbox"><input type="checkbox" />同意</label> 
+					<% if(req.session.user && req.session.user.authority && req.session.user.authority > 1){ %>
 					<button class="btn" type="submit" value='createclub'>提交</button>
+					<% } %>
 				</fieldset>
 			</form>
 		</div>

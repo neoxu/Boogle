@@ -4,18 +4,45 @@
 			<div class="page-header">
 				<h1>
 					<%= club.clubName %>
-				</h1>
+				</h1>	
+				<div class="carousel slide" id="carousel-926043">
+					<div class="carousel-inner">
+						<div class="item active">
+					   		<img alt="" src=<%=club.backgroundimg.url%> />
+							<div class="carousel-caption">									
+								<p>
+									<%= club.clubInfo %>
+								</p>							
+							</div>								
+						</div>
+					</div>
+				</div>
+				<% if(canedit && canedit == true){ %>
+					<button class="btn" type="submit" value='createclub'>更新圖片</button>
+				<% } %>	
 			</div>
-			<h2>
-				聯盟公告
-			</h2>
-			<p>
-				<%= club.clubInfo %>
-			</p>
-			<p>
-				<a class="btn" href="#">查看更多 »</a>
-			</p>
+			<% if(canedit && canedit == true){ %>
+				<div class="page-header">
+					<h1>
+						新增球季
+					</h1>	
+			    	<form name="createseason" action="/createseason" method="post" enctype="multipart/form-data">
+			    		<input type="hidden" name= 'clubName' class="form-control" value = <%= club.clubName %>>
+						<input type="text" name= 'seasonName' placeholder="球季名稱" class="form-control">
+						<div>
+						<button class="btn" type="submit" value='createseason'>新增球季</button>
+						</div>
+					</form>
+				</div>
+			<% } %>		
 			<div class="pagination">
+				<h1>
+					聯盟公告
+				</h1>
+				<% if(canedit && canedit == true){ %>
+					<button class="btn" type="submit" value='createclub'>新增公告</button>
+				<% } %>			
+			</div><div class="pagination">
 				<ul>
 					<li>
 						<a href="#">上一页</a>
